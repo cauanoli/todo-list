@@ -1,9 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>todo-list</title>
-  </head>
-  <body></body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>todo-list</title>
+    </head>
+    <body>
+        <aside class="aside">
+            <nav>
+                <ul class="main-nav">
+                    <div class="main-nav__menu">
+                        <button
+                            class="main-nav__menu__option"
+                            id="today-tasks-button"
+                        >
+                            today
+                        </button>
+                        <button
+                            class="main-nav__menu__option"
+                            id="all-tasks-button"
+                        >
+                            all tasks
+                        </button>
+
+                        <button
+                            class="main-nav__menu__option"
+                            id="important-tasks-button"
+                        >
+                            important tasks
+                        </button>
+                    </div>
+                    <div class="main-nav__projects"></div>
+                    <button class="button" id="add-project-button">
+                        add project
+                    </button>
+                </ul>
+            </nav>
+        </aside>
+        <main>
+            <div id="content"></div>
+        </main>
+
+        <button class="button" id="add-task-button">add task</button>
+    </body>
 </html>
