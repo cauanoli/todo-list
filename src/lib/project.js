@@ -11,7 +11,6 @@ export function createProject({ name, tasks = [] }) {
     // add a task to project
     function addTask(task) {
         tasks.push(task);
-        console.log(tasks);
     }
 
     // remove a task with id

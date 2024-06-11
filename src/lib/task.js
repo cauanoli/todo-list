@@ -8,13 +8,9 @@ export function createTask({
     dueDate,
     dueTime,
     projectId,
+    id = nanoid(),
 }) {
     const createdDate = new Date();
-    let id = nanoid();
-
-    function toggleDone() {
-        done = !done;
-    }
 
     return {
         id,
@@ -26,6 +22,13 @@ export function createTask({
         dueDate,
         dueTime,
         createdDate,
-        toggleDone,
     };
+}
+
+export function toggleTaskDone(task) {
+    return createTask({ ...task, done: !task.done });
+}
+
+export function updateTask(task, updatedTaskData) {
+    return createTask({ ...task, ...updatedTaskData });
 }
