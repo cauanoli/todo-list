@@ -37,4 +37,10 @@ export function isDone(task) {
     return task.done;
 }
 
-export function isNotDone(task) {}
+export function isNotDone(task) {
+    return !task.done;
+}
+
+export function isImportant(task) {
+    return task.important;
+}

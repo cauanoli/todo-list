@@ -1,29 +1,30 @@
 import { nanoid } from "nanoid";
 import { isSameDay } from "date-fns";
 
-import { isDone, isNotDone } from "./task";
+import { isDone, isNotDone, isImportant } from "./task";
 
-export function createProject({ name, tasks = [] }) {
+export function createProject({ name, tasks }) {
     let id = nanoid();
+    const _tasks = tasks ?? [];
 
     // get all project tasks
     function getTasks() {
-        return tasks;
+        return _tasks;
     }
 
     // add a task to project
     function addTask(task) {
-        tasks.push(task);
+        _tasks.push(task);
     }
 
     // remove a task with id
     function removeTaskById(id) {
-        tasks = tasks.filter((task) => task.id !== id);
+        _tasks = _tasks.filter((task) => task.id !== id);
     }
 
     // get all todays tasks
     function getTodayTasks() {
-        const todayTasks = tasks.filter((task) =>
+        const todayTasks = _tasks.filter((task) =>
             isSameDay(task.dueDate, Date.now())
         );
 
@@ -46,25 +47,40 @@ export function createProject({ name, tasks = [] }) {
 
     // get all done tasks
     function getDoneTasks() {
-        const completedTasks = filterDoneTasks(tasks);
+        const completedTasks = filterDoneTasks(_tasks);
         return completedTasks;
     }
 
     // get all not completed tasks
     function getNotDoneTasks() {
-        const notCompletedTasks = filterNotDoneTasks(tasks);
+        const notCompletedTasks = filterNotDoneTasks(_tasks);
         return notCompletedTasks;
     }
 
     // get all important tasks
     function getImportantTasks() {
-        const importantTasks = tasks.filter((task) => task.important);
+        const importantTasks = filterImportantTasks(_tasks);
         return importantTasks;
+    }
+
+    // get important done tasks
+    function getImportantDoneTasks() {
+        const importantTasks = getImportantTasks();
+        const importantDoneTasks = filterDoneTasks(importantTasks);
+
+        return importantDoneTasks;
+    }
+
+    // get important not done tasks
+    function getImportantNotDoneTasks() {
+        const importantTasks = getImportantTasks();
+        const importantNotDoneTasks = filterNotDoneTasks(importantTasks);
+        return importantNotDoneTasks;
     }
 
     // update a task by id
     function updateTaskById(taskId, data) {
-        const idOfTaskToUpdate = tasks.findIndex((task) => task.id === taskId);
+        const idOfTaskToUpdate = _tasks.findIndex((task) => task.id === taskId);
         tasks[idOfTaskToUpdate] = { ...tasks[idOfTaskToUpdate], ...data };
     }
 
@@ -79,6 +95,8 @@ export function createProject({ name, tasks = [] }) {
         getTodayDoneTasks,
         getTodayNotDoneTasks,
         getImportantTasks,
+        getImportantDoneTasks,
+        getImportantNotDoneTasks,
         updateTaskById,
     };
 }
@@ -91,4 +109,9 @@ function filterDoneTasks(tasks) {
 function filterNotDoneTasks(tasks) {
     const notDoneTasks = tasks.filter((task) => isNotDone(task));
     return notDoneTasks;
+}
+
+function filterImportantTasks(tasks) {
+    const importantTasks = tasks.filter((task) => isImportant(task));
+    return importantTasks;
 }
