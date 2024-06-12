@@ -28,9 +28,12 @@ export function renderAllTasksPage({ tasksNotDone = [], tasksDone = [] }) {
         tasksDoneContainer.appendChild(renderTask(task));
     });
 
+    tasksDoneDetails.appendChild(tasksDoneTitle);
+    tasksDoneDetails.appendChild(tasksDoneContainer);
+
     tasksContainer.appendChild(tasksNotDoneContainer);
-    tasksContainer.appendChild(tasksDoneContainer);
 
     container.appendChild(title);
     container.appendChild(tasksContainer);
+    container.appendChild(tasksDoneDetails);
 }
