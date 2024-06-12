@@ -15,7 +15,7 @@ export function createProject({ name, tasks = [] }) {
 
     // remove a task with id
     function removeTaskById(id) {
-        tasks.filter((task) => task.id !== id);
+        tasks = tasks.filter((task) => task.id !== id);
     }
 
     // TODO: get all todays tasks
@@ -36,6 +36,12 @@ export function createProject({ name, tasks = [] }) {
     function getImportantTasks() {
         const importantTasks = tasks.filter((task) => tasks.important);
         return importantTasks;
+    }
+
+    // update a task by id
+    function updateTask(taskId, data) {
+        const idOfTaskToUpdate = tasks.findIndex((task) => task.id === taskId);
+        tasks[idOfTaskToUpdate] = { ...tasks[idOfTaskToUpdate], ...data };
     }
 
     return {
