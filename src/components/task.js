@@ -1,3 +1,4 @@
+// TODO: create way to edit and remove task
 export function renderTask({ id, title, important, done, projectId }) {
     const task = document.createElement("div");
     task.classList = `task ${done ? "done" : ""} ${

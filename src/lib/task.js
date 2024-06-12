@@ -32,3 +32,9 @@ export function toggleTaskDone(task) {
 export function updateTask(task, updatedTaskData) {
     return createTask({ ...task, ...updatedTaskData });
 }
+
+export function isDone(task) {
+    return task.done;
+}
+
+export function isNotDone(task) {}
