@@ -16,6 +16,7 @@ import { StateManager } from "./lib/state_manager";
     const importantTasksButton = document.querySelector(
         "#important-tasks-button"
     );
+
     let projectsButtons = document.querySelectorAll(".project-button");
 
     function init() {
@@ -51,6 +52,7 @@ import { StateManager } from "./lib/state_manager";
     function addEvents() {
         addMenuEvents();
         addTaskDialogEvents();
+        addProjectDialogEvents();
     }
 
     function addTaskDialogEvents() {
@@ -88,6 +90,27 @@ import { StateManager } from "./lib/state_manager";
             updateProjectButtons();
             addProjectButtonEvents();
             goToProjectPage(project);
+        });
+    }
+
+    function addProjectDialogEvents() {
+        const openDialogButton = document.querySelector("#add-project-button");
+        const dialog = document.querySelector("#add-project-dialog");
+        const form = dialog.querySelector("form");
+
+        openDialogButton.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        form.addEventListener("submit", (event) => {
+            const data = new FormData(event.target);
+
+            StateManager.addNewProject({
+                name: data.get("name"),
+            });
+
+            updateProjectButtons();
+            addProjectButtonEvents();
         });
     }
 
