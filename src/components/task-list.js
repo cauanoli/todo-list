@@ -11,9 +11,6 @@ export function renderTasks({
         tasksNotDone = sortByImportance(tasksNotDone);
     }
 
-    console.log(tasksDone);
-    console.log(tasksNotDone);
-
     const tasksContainer = document.createElement("div");
     tasksContainer.classList = "tasks";
 
