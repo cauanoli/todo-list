@@ -44,3 +44,11 @@ export function isNotDone(task) {
 export function isImportant(task) {
     return task.important;
 }
+
+export function sortByImportance(tasks) {
+    const tasksSortedByImportance = tasks.sort((task) => {
+        return isImportant(task) ? -1 : 1;
+    });
+
+    return tasksSortedByImportance;
+}

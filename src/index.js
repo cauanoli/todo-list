@@ -1,8 +1,11 @@
 import { createProject } from "./lib/project";
 import { createTask } from "./lib/task";
+
 import { renderAllTasksPage } from "./pages/all_tasks";
 import { renderTodayTasks } from "./pages/today_tasks";
 import { renderImportantTasks } from "./pages/important_tasks";
+import { renderProjectTasks } from "./pages/project";
+
 const project = createProject({
     name: "hahaha",
 });
@@ -31,8 +34,6 @@ project.addTask(
     })
 );
 
-console.log(project.getTasks());
-
 /*
 renderAllTasksPage({
     tasksDone: project.getDoneTasks(),
@@ -44,9 +45,12 @@ renderTodayTasks({
     todayNotDoneTasks: project.getTodayNotDoneTasks(),
 });
 
-*/
 
 renderImportantTasks({
     tasksDone: project.getImportantDoneTasks(),
     tasksNotDone: project.getImportantNotDoneTasks(),
 });
+
+*/
+
+renderProjectTasks(project);

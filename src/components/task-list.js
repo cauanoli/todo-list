@@ -1,6 +1,19 @@
 import { renderTask } from "../components/task";
+import { sortByImportance } from "../lib/task";
 
-export function renderTasks({ tasksDone = [], tasksNotDone = [] }) {
+export function renderTasks({
+    tasksDone = [],
+    tasksNotDone = [],
+    byImportance = true,
+}) {
+    if (byImportance) {
+        tasksDone = sortByImportance(tasksDone);
+        tasksNotDone = sortByImportance(tasksNotDone);
+    }
+
+    console.log(tasksDone);
+    console.log(tasksNotDone);
+
     const tasksContainer = document.createElement("div");
     tasksContainer.classList = "tasks";
 
@@ -28,6 +41,5 @@ export function renderTasks({ tasksDone = [], tasksNotDone = [] }) {
     tasksContainer.appendChild(tasksNotDoneContainer);
     tasksContainer.appendChild(tasksDoneDetails);
 
-    console.log(tasksDone, tasksNotDone);
     return tasksContainer;
 }
