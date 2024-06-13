@@ -1,5 +1,4 @@
 import { renderProjectsButtons } from "./components/project-button-list";
-import { createProject } from "./lib/project";
 import { createTask } from "./lib/task";
 
 import { renderProjectTasks } from "./pages/project";
@@ -7,84 +6,9 @@ import { renderTodayTasks } from "./pages/today_tasks";
 import { renderImportantTasks } from "./pages/important_tasks";
 import { renderAllTasksPage } from "./pages/all_tasks";
 
-function createProjectsStageManager() {
-    const projects = [];
-
-    function addNewProject(data) {
-        const newProject = createProject({ ...data });
-        projects.push(newProject);
-        return newProject;
-    }
-
-    function getProjects() {
-        return projects;
-    }
-
-    function getProjectById(id) {
-        const projectFound = projects.find((project) => project.id === id);
-        return projectFound;
-    }
-
-    function getDoneTasks() {
-        const doneTasks = projects
-            .map((project) => project.getDoneTasks())
-            .flat();
-        return doneTasks;
-    }
-
-    function getNotDoneTasks() {
-        const notDoneTasks = projects
-            .map((project) => project.getNotDoneTasks())
-            .flat();
-        return notDoneTasks;
-    }
-
-    function getTodayDoneTasks() {
-        const allTodayDoneTasks = projects
-            .map((project) => project.getTodayDoneTasks())
-            .flat();
-
-        return allTodayDoneTasks;
-    }
-
-    function getTodayNotDoneTasks() {
-        const allTodayNotDoneTasks = projects
-            .map((project) => project.getTodayNotDoneTasks())
-            .flat();
-
-        return allTodayNotDoneTasks;
-    }
-
-    function getImportantDoneTasks() {
-        const importantDoneTasks = projects
-            .map((project) => project.getImportantDoneTasks())
-            .flat();
-        return importantDoneTasks;
-    }
-
-    function getImportantNotDoneTasks() {
-        const importantNotDoneTasks = projects
-            .map((project) => project.getImportantNotDoneTasks())
-            .flat();
-
-        return importantNotDoneTasks;
-    }
-
-    return {
-        getTodayDoneTasks,
-        getTodayNotDoneTasks,
-        getImportantDoneTasks,
-        getImportantNotDoneTasks,
-        getDoneTasks,
-        getNotDoneTasks,
-        getProjects,
-        addNewProject,
-        getProjectById,
-    };
-}
+import { StateManager } from "./lib/state_manager";
 
 (function () {
-    const StateManager = createProjectsStageManager();
     const content = document.querySelector("#content");
 
     const todayTasksButton = document.querySelector("#today-tasks-button");
@@ -93,16 +17,16 @@ function createProjectsStageManager() {
         "#important-tasks-button"
     );
     let projectsButtons = document.querySelectorAll(".project-button");
-    console.log(projectsButtons);
 
     function init() {
         renderProjectsButtons(StateManager.getProjects());
         updateProjectButtons();
-        addMenuEvents();
+        addEvents();
         goToTodayTasksPage();
     }
 
     function updateProjectButtons() {
+        renderProjectsButtons(StateManager.getProjects());
         projectsButtons = document.querySelectorAll(".project-button");
     }
 
@@ -124,6 +48,49 @@ function createProjectsStageManager() {
         });
     }
 
+    function addEvents() {
+        addMenuEvents();
+        addTaskDialogEvents();
+    }
+
+    function addTaskDialogEvents() {
+        const openDialogButton = document.querySelector("#add-task-button");
+        const addTaskDialog = document.querySelector("#add-task-dialog");
+        const addTaskForm = addTaskDialog.querySelector("form");
+
+        openDialogButton.addEventListener("click", () => {
+            addTaskDialog.showModal();
+        });
+
+        addTaskForm.addEventListener("submit", (event) => {
+            const data = new FormData(event.target);
+            const newTask = {};
+
+            for (const [key, value] of data) {
+                if (key !== "project") {
+                    newTask[key] = value;
+                }
+            }
+
+            const project = StateManager.addNewProject({
+                name: data.get("project"),
+            });
+
+            project.addTask(
+                createTask({
+                    ...newTask,
+                    projectId: project.id,
+                })
+            );
+
+            console.log(project.getTasks());
+
+            updateProjectButtons();
+            addProjectButtonEvents();
+            goToProjectPage(project);
+        });
+    }
+
     function addMenuEvents() {
         todayTasksButton.addEventListener("click", () => {
             goToTodayTasksPage();
@@ -137,7 +104,10 @@ function createProjectsStageManager() {
             goToImportantTasksPage();
         });
 
-        console.log(projectsButtons);
+        addProjectButtonEvents();
+    }
+
+    function addProjectButtonEvents() {
         projectsButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 goToProjectPage(
@@ -178,7 +148,12 @@ function createProjectsStageManager() {
         importantTasksButton.classList.add("active");
     }
 
-    function goToProjectPage(project, button) {
+    function goToProjectPage(
+        project,
+        button = [...projectsButtons].find(
+            (projectButton) => projectButton["data-id"] === project.id
+        )
+    ) {
         resetCurrentPage();
         resetButtonsActive();
         renderProjectTasks(project);
