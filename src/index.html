@@ -10,151 +10,153 @@
   </head>
 
   <body>
-    <aside class="aside">
-      <nav>
-        <ul class="main-nav">
-          <div class="main-nav__menu">
-            <button
-              class="main-nav__menu__option"
-              id="today-tasks-button"
-            >
-              today
-            </button>
-            <button
-              class="main-nav__menu__option"
-              id="all-tasks-button"
-            >
-              all tasks
-            </button>
+    <div class="main-container">
+      <aside class="aside">
+        <nav>
+          <ul class="main-nav">
+            <div class="main-nav__menu">
+              <button
+                class="main-nav__menu__option button"
+                id="today-tasks-button"
+              >
+                today
+              </button>
+              <button
+                class="main-nav__menu__option button"
+                id="all-tasks-button"
+              >
+                all tasks
+              </button>
 
+              <button
+                class="main-nav__menu__option button"
+                id="important-tasks-button"
+              >
+                important tasks
+              </button>
+            </div>
+            <div
+              class="main-nav__projects"
+              id="main-nav__projects"
+            ></div>
             <button
-              class="main-nav__menu__option"
-              id="important-tasks-button"
+              class="button add-project-button inverted"
+              id="add-project-button"
             >
-              important tasks
+              add project
             </button>
+          </ul>
+        </nav>
+      </aside>
+      <main>
+        <div id="content"></div>
+      </main>
+
+      <button
+        class="button add-task-button inverted"
+        id="add-task-button"
+      >
+        add task
+      </button>
+
+      <dialog
+        id="add-task-dialog"
+        class="dialog"
+      >
+        <h2>add task</h2>
+        <form
+          method="dialog"
+          class="add-task-dialog__form form"
+        >
+          <div class="form__field">
+            <label for="task-title"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="task-title"
+              name="title"
+            />
           </div>
-          <div
-            class="main-nav__projects"
-            id="main-nav__projects"
-          ></div>
+
+          <div class="form__field">
+            <label for="task-project"
+              >Project</label
+            >
+            <input
+              type="text"
+              id="task-project"
+              name="project"
+            />
+          </div>
+
+          <div class="form__field">
+            <label for="task-due-date"
+              >due date</label
+            >
+            <input
+              type="date"
+              name="dueDate"
+              id="task-due-date"
+            />
+          </div>
+
+          <div class="form__field">
+            <label for="task-due-time" 2
+              >due time</label
+            >
+            <input
+              type="time"
+              name="dueTime"
+              id="task-due-time"
+            />
+          </div>
+          <div class="form__field">
+            <label for="task-important"
+              >Important?</label
+            >
+            <input
+              type="checkbox"
+              name="important"
+              id="task-important"
+            />
+          </div>
+
           <button
-            class="button"
-            id="add-project-button"
+            class="button form__button add-task-dialog__button"
+          >
+            add task
+          </button>
+        </form>
+      </dialog>
+
+      <dialog
+        id="add-project-dialog"
+        class="dialog"
+      >
+        <h2>add project</h2>
+        <form
+          method="dialog"
+          class="add-project-dialog__form form"
+        >
+          <div class="form__field">
+            <label for="project-name"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="project-name"
+              name="name"
+            />
+          </div>
+
+          <button
+            class="button form__button add-project-dialog__button"
           >
             add project
           </button>
-        </ul>
-      </nav>
-    </aside>
-    <main>
-      <div id="content"></div>
-    </main>
-
-    <button
-      class="button"
-      id="add-task-button"
-    >
-      add task
-    </button>
-
-    <dialog
-      id="add-task-dialog"
-      class="dialog"
-    >
-      <h2>add task</h2>
-      <form
-        method="dialog"
-        class="add-task-dialog__form form"
-      >
-        <div class="form__field">
-          <label for="task-title"
-            >Name</label
-          >
-          <input
-            type="text"
-            id="task-title"
-            name="title"
-          />
-        </div>
-
-        <div class="form__field">
-          <label for="task-project"
-            >Project</label
-          >
-          <input
-            type="text"
-            id="task-project"
-            name="project"
-          />
-        </div>
-
-        <div class="form__field">
-          <label for="task-due-date"
-            >due date</label
-          >
-          <input
-            type="date"
-            name="dueDate"
-            id="task-due-date"
-          />
-        </div>
-
-        <div class="form__field">
-          <label for="task-due-time" 2
-            >due time</label
-          >
-          <input
-            type="time"
-            name="dueTime"
-            id="task-due-time"
-          />
-        </div>
-        <div class="form__field">
-          <label for="task-important"
-            >Important?</label
-          >
-          <input
-            type="checkbox"
-            name="important"
-            id="task-important"
-          />
-        </div>
-
-        <button
-          class="button form__button add-task-dialog__button"
-        >
-          add task
-        </button>
-      </form>
-    </dialog>
-
-    <dialog
-      id="add-project-dialog"
-      class="dialog"
-    >
-      <h2>add project</h2>
-      <form
-        method="dialog"
-        class="add-project-dialog__form form"
-      >
-        <div class="form__field">
-          <label for="project-name"
-            >Name</label
-          >
-          <input
-            type="text"
-            id="project-name"
-            name="name"
-          />
-        </div>
-
-        <button
-          class="button form__button add-project-dialog__button"
-        >
-          add task
-        </button>
-      </form>
-    </dialog>
+        </form>
+      </dialog>
+    </div>
   </body>
 </html>

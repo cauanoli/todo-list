@@ -1,3 +1,5 @@
+import "./style.css";
+
 import { renderProjectsButtons } from "./components/project-button-list";
 
 import { createTask } from "./lib/task";
