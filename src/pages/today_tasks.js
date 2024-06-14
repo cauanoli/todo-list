@@ -10,7 +10,7 @@ export function renderTodayTasks({
     const header = document.createElement("header");
     header.classList = "header";
 
-    const title = document.createElement("h2");
+    const title = document.createElement("h1");
     title.classList = "title";
     title.innerText = "Today";
 

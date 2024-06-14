@@ -22,6 +22,7 @@ export function renderTasks({
     });
 
     const tasksDoneDetails = document.createElement("details");
+    tasksDoneDetails.classList = "tasks__done__details";
     const tasksDoneTitle = document.createElement("summary");
     tasksDoneTitle.innerText = "Done";
 

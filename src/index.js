@@ -38,7 +38,7 @@ import {
         project.addTask(
             createTask({
                 title: "haha",
-                done: false,
+                done: true,
                 description: "hjahaa",
                 dueDate: new Date("2023/10/23"),
                 dueTime: "12:20",
@@ -65,4 +65,5 @@ import {
     }
 
     init();
+    test();
 })();
