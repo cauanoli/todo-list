@@ -104,7 +104,7 @@ summary {
 }
 
 .main-nav__menu__option:hover,
-.main-nav__projects__project-button {
+.main-nav__projects__project-button:hover {
     background-color: var(--gray-400);
 }
 
@@ -221,8 +221,13 @@ input[type="checkbox"] {
     align-items: center;
 }
 
+details {
+    margin-top: 2rem;
+}
+
 input:not([type="checkbox"]) {
     padding: 1rem;
     font-size: 1rem;
     border: 1px solid var(--gray-700);
+    border-radius: 4px;
 }
