@@ -1,3 +1,5 @@
+import { StateManager } from "../lib/state_manager";
+
 // TODO: create way to edit and remove task
 export function renderTask({ id, title, important, done, projectId }) {
     const task = document.createElement("div");
@@ -18,8 +20,8 @@ export function renderTask({ id, title, important, done, projectId }) {
     taskTitle.classList = "task__description__title";
 
     const taskProject = document.createElement("p");
-    // TODO: create way to get project name by id
-    taskProject.innerText = getProjectNameById(projectId);
+
+    taskProject.innerText = StateManager.getProjectNameById(projectId);
     taskProject.classList = "task__description__project";
 
     taskDescription.appendChild(taskTitle);
@@ -35,9 +37,4 @@ export function renderTask({ id, title, important, done, projectId }) {
     task.appendChild(taskImportant);
 
     return task;
-}
-
-// TODO: remove ; just for tests purposes
-function getProjectNameById() {
-    return "test";
 }

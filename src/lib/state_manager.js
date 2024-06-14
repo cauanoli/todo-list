@@ -24,6 +24,11 @@ function createProjectsStageManager() {
         return projectFound;
     }
 
+    function getProjectNameById(id) {
+        const project = getProjectById(id);
+        return project.name;
+    }
+
     function getProjectByName(name) {
         const projectFound = projects.find((project) => project.name === name);
         return projectFound;
@@ -84,6 +89,7 @@ function createProjectsStageManager() {
         getProjects,
         addNewProject,
         getProjectById,
+        getProjectNameById,
     };
 }
 
