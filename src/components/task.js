@@ -1,3 +1,4 @@
+import { goToProjectPage } from "../lib/pages";
 import { StateManager } from "../lib/state_manager";
 
 // TODO: create way to edit and remove task
@@ -11,6 +12,11 @@ export function renderTask({ id, title, important, done, projectId }) {
     taskDone.classList = "task__done";
     taskDone.type = "checkbox";
     taskDone.checked = done;
+
+    taskDone.addEventListener("click", () => {
+        StateManager.toggleTaskDoneById({ id, projectId });
+        goToProjectPage(StateManager.getProjectById(projectId));
+    });
 
     const taskDescription = document.createElement("div");
     taskDescription.classList = "task__description";

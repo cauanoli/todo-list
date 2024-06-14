@@ -81,7 +81,11 @@ export function createProject({ name, tasks }) {
     // update a task by id
     function updateTaskById(taskId, data) {
         const idOfTaskToUpdate = _tasks.findIndex((task) => task.id === taskId);
-        tasks[idOfTaskToUpdate] = { ...tasks[idOfTaskToUpdate], ...data };
+        _tasks[idOfTaskToUpdate] = { ..._tasks[idOfTaskToUpdate], ...data };
+    }
+
+    function getTaskById(id) {
+        return _tasks.find((task) => task.id === id);
     }
 
     return {
@@ -98,6 +102,7 @@ export function createProject({ name, tasks }) {
         getImportantDoneTasks,
         getImportantNotDoneTasks,
         updateTaskById,
+        getTaskById,
     };
 }
 

@@ -79,6 +79,13 @@ function createProjectsStageManager() {
         return importantNotDoneTasks;
     }
 
+    function toggleTaskDoneById({ id, projectId }) {
+        const project = getProjectById(projectId);
+        const task = project.getTaskById(id);
+        console.log(task);
+        project.updateTaskById(id, { ...task, done: !task.done });
+    }
+
     return {
         getTodayDoneTasks,
         getTodayNotDoneTasks,
@@ -90,6 +97,7 @@ function createProjectsStageManager() {
         addNewProject,
         getProjectById,
         getProjectNameById,
+        toggleTaskDoneById,
     };
 }
 
