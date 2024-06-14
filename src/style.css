@@ -135,6 +135,11 @@ main {
     user-select: unset;
 }
 
+.task__done:hover,
+.task__important:hover {
+    cursor: pointer;
+}
+
 .task__description {
     flex: 1;
     display: flex;
@@ -162,4 +167,62 @@ main {
 input[type="checkbox"] {
     width: 32px;
     height: 32px;
+}
+
+.dialog {
+    inset-block-start: 0px;
+    inset-inline-start: unset;
+    inset-inline-end: 0px;
+    height: 100%;
+    max-height: 100%;
+    border: none;
+
+    background-color: var(--gray-200);
+    padding: 2rem 3rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.dialog h2 {
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form__button {
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-top: 1rem;
+}
+
+.form__field {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+.form__field label {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.form__field:has(input[type="checkbox"]) {
+    flex-direction: row;
+    align-items: center;
+}
+
+input:not([type="checkbox"]) {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--gray-700);
 }

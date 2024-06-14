@@ -65,5 +65,4 @@ import {
     }
 
     init();
-    test();
 })();
