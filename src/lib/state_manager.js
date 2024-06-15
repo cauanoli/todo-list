@@ -1,9 +1,40 @@
 import { createProject } from "./project";
+import {
+    TODAY_TASKS_PAGE,
+    ALL_TASKS_PAGE,
+    IMPORTANT_TASKS_PAGE,
+    DEFAULT_PROJECT_NAME,
+} from "../constants";
+import {
+    goToAllTasksPage,
+    goToImportantTasksPage,
+    goToTodayTasksPage,
+} from "./pages";
+import { createTask } from "./task";
 
 function createProjectsStageManager() {
+    let currentPage;
     const projects = [];
+    const _pages = {
+        [TODAY_TASKS_PAGE]: {
+            name: TODAY_TASKS_PAGE,
+            render: goToTodayTasksPage,
+        },
+        [IMPORTANT_TASKS_PAGE]: {
+            name: IMPORTANT_TASKS_PAGE,
+            render: goToImportantTasksPage,
+        },
+        [ALL_TASKS_PAGE]: {
+            name: ALL_TASKS_PAGE,
+            render: goToAllTasksPage,
+        },
+    };
 
     function addNewProject(data) {
+        if (!data.name) {
+            data.name = DEFAULT_PROJECT_NAME;
+        }
+
         let project = getProjectByName(data.name);
 
         if (!project) {
@@ -82,8 +113,65 @@ function createProjectsStageManager() {
     function toggleTaskDoneById({ id, projectId }) {
         const project = getProjectById(projectId);
         const task = project.getTaskById(id);
-        console.log(task);
         project.updateTaskById(id, { ...task, done: !task.done });
+    }
+
+    function toggleTaskImportantById({ id, projectId }) {
+        const project = getProjectById(projectId);
+        const task = project.getTaskById(id);
+        project.updateTaskById(id, { ...task, important: !task.important });
+    }
+
+    function editTaskById(id, { project, ...data }) {
+        const projectFound = getProjectByName(project);
+        console.log(projectFound);
+
+        if (!projectFound) {
+            const newProject = addNewProject({
+                name: project,
+            });
+            newProject.addTask(
+                createTask({
+                    id,
+                    ...data,
+                    projectId: newProject.id,
+                })
+            );
+        } else if (projectFound.id !== data.projectId) {
+            const pastTaskProject = StateManager.getProjectById(data.projectId);
+            pastTaskProject.removeTaskById(data.id);
+            projectFound.addTask(
+                createTask({
+                    id,
+                    ...data,
+                    projectId: projectFound.id,
+                })
+            );
+        } else {
+            projectFound.updateTaskById(id, data);
+        }
+    }
+
+    function setCurrentPageName(pageName) {
+        currentPage = pageName;
+    }
+
+    function getCurrentPage() {
+        return _pages[currentPage];
+    }
+
+    function addPage({ name, render }) {
+        if (!_pages[name]) {
+            _pages[name] = {
+                name,
+                render,
+            };
+        }
+    }
+
+    function removeTaskById({ id, projectId }) {
+        const project = getProjectById(projectId);
+        project.removeTaskById(id);
     }
 
     return {
@@ -97,7 +185,14 @@ function createProjectsStageManager() {
         addNewProject,
         getProjectById,
         getProjectNameById,
+        getProjectByName,
         toggleTaskDoneById,
+        toggleTaskImportantById,
+        setCurrentPageName,
+        getCurrentPage,
+        addPage,
+        editTaskById,
+        removeTaskById,
     };
 }
 

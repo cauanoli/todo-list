@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { isSameDay } from "date-fns";
+import { isSameDay, isToday } from "date-fns";
 
 import { isDone, isNotDone, isImportant } from "./task";
 
@@ -24,9 +24,9 @@ export function createProject({ name, tasks }) {
 
     // get all todays tasks
     function getTodayTasks() {
-        const todayTasks = _tasks.filter((task) =>
-            isSameDay(task.dueDate, Date.now())
-        );
+        const todayTasks = _tasks.filter((task) => {
+            return isToday(new Date(task.dueDate));
+        });
 
         return todayTasks;
     }
@@ -86,6 +86,11 @@ export function createProject({ name, tasks }) {
 
     function getTaskById(id) {
         return _tasks.find((task) => task.id === id);
+    }
+
+    function removeTaskById(taskId) {
+        const idOfTaskToRemove = _tasks.findIndex((task) => task.id === taskId);
+        _tasks.splice(idOfTaskToRemove, 1);
     }
 
     return {

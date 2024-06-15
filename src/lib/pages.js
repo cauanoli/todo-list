@@ -1,13 +1,21 @@
+import {
+    TODAY_TASKS_PAGE,
+    ALL_TASKS_PAGE,
+    IMPORTANT_TASKS_PAGE,
+} from "../constants";
+
 import { StateManager } from "./state_manager";
+
+import { createTask } from "./task";
+
 import { renderProjectsButtons } from "../components/project-button-list";
+
 import {
     renderTodayTasks,
     renderAllTasksPage,
     renderImportantTasks,
     renderProjectTasks,
 } from "../pages";
-
-import { createTask } from "./task";
 
 let projectsButtons = document.querySelectorAll(".project-button");
 const todayTasksButton = document.querySelector("#today-tasks-button");
@@ -17,48 +25,59 @@ const importantTasksButton = document.querySelector("#important-tasks-button");
 export function goToTodayTasksPage() {
     resetCurrentPage();
     resetButtonsActive();
+    updateProjectButtons();
     renderTodayTasks({
         todayDoneTasks: StateManager.getTodayDoneTasks(),
         todayNotDoneTasks: StateManager.getTodayNotDoneTasks(),
     });
     todayTasksButton.classList.add("active");
+    StateManager.setCurrentPageName(TODAY_TASKS_PAGE);
 }
 
 export function goToAllTasksPage() {
     resetCurrentPage();
     resetButtonsActive();
+    updateProjectButtons();
     renderAllTasksPage({
         tasksDone: StateManager.getDoneTasks(),
         tasksNotDone: StateManager.getNotDoneTasks(),
     });
     allTasksButton.classList.add("active");
+    StateManager.setCurrentPageName(ALL_TASKS_PAGE);
 }
 
 export function goToImportantTasksPage() {
     resetCurrentPage();
     resetButtonsActive();
+    updateProjectButtons();
     renderImportantTasks({
         tasksDone: StateManager.getImportantDoneTasks(),
         tasksNotDone: StateManager.getImportantNotDoneTasks(),
     });
     importantTasksButton.classList.add("active");
+    StateManager.setCurrentPageName(IMPORTANT_TASKS_PAGE);
 }
 
-export function goToProjectPage(
-    project,
-    button = [...projectsButtons].find(
-        (projectButton) => projectButton["data-id"] === project.id
-    )
-) {
+export function goToProjectPage(project, button) {
     resetCurrentPage();
     resetButtonsActive();
+    updateProjectButtons();
     renderProjectTasks(project);
+    button = [...projectsButtons].find(
+        (projectButton) => projectButton["data-id"] === project.id
+    );
     button.classList.add("active");
+    StateManager.addPage({
+        name: project.id,
+        render: () => goToProjectPage(project),
+    });
+    StateManager.setCurrentPageName(project.id);
 }
 
 export function updateProjectButtons() {
     renderProjectsButtons(StateManager.getProjects());
     projectsButtons = document.querySelectorAll(".project-button");
+    addProjectButtonEvents();
 }
 
 function resetCurrentPage() {
@@ -139,6 +158,7 @@ function addProjectDialogEvents() {
 
         updateProjectButtons();
         addProjectButtonEvents();
+        reloadPage();
     });
 }
 
@@ -167,4 +187,9 @@ function addProjectButtonEvents() {
             );
         });
     });
+}
+
+export function reloadPage() {
+    const currentPage = StateManager.getCurrentPage();
+    currentPage.render();
 }
