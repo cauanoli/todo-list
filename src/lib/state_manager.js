@@ -130,6 +130,7 @@ function createProjectsStageManager() {
             const newProject = addNewProject({
                 name: project,
             });
+
             newProject.addTask(
                 createTask({
                     id,
@@ -137,6 +138,9 @@ function createProjectsStageManager() {
                     projectId: newProject.id,
                 })
             );
+
+            const oldProject = getProjectById(data.projectId);
+            oldProject.removeTaskById(id);
         } else if (projectFound.id !== data.projectId) {
             const pastTaskProject = StateManager.getProjectById(data.projectId);
             pastTaskProject.removeTaskById(data.id);
