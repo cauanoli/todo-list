@@ -140,12 +140,14 @@ function createProjectsStageManager() {
         const project = getProjectById(projectId);
         const task = project.getTaskById(id);
         project.updateTaskById(id, { ...task, done: !task.done });
+        saveData();
     }
 
     function toggleTaskImportantById({ id, projectId }) {
         const project = getProjectById(projectId);
         const task = project.getTaskById(id);
         project.updateTaskById(id, { ...task, important: !task.important });
+        saveData();
     }
 
     function editTaskById(id, { project, ...data }) {
@@ -179,11 +181,14 @@ function createProjectsStageManager() {
         } else {
             projectFound.updateTaskById(id, data);
         }
+
+        saveData();
     }
 
     function removeTaskById({ id, projectId }) {
         const project = getProjectById(projectId);
         project.removeTaskById(id);
+        saveData();
     }
 
     function setCurrentPageName(pageName) {
@@ -246,11 +251,9 @@ function createProjectsStageManager() {
         }
     }
 
-    function init() {
+    function initializeData() {
         retrieveData();
     }
-
-    init();
 
     return {
         getTodayDoneTasks,
@@ -272,6 +275,7 @@ function createProjectsStageManager() {
         editTaskById,
         removeTaskById,
         addTask,
+        initializeData,
     };
 }
 
