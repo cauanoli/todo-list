@@ -3,9 +3,8 @@ import { isSameDay, isToday } from "date-fns";
 
 import { isDone, isNotDone, isImportant } from "./task";
 
-export function createProject({ name, tasks }) {
-    let id = nanoid();
-    const _tasks = tasks ?? [];
+export function createProject({ name, id = nanoid() }) {
+    const _tasks = [];
 
     // get all project tasks
     function getTasks() {

@@ -127,12 +127,10 @@ function addTaskDialogEvents() {
             name: data.get("project"),
         });
 
-        project.addTask(
-            createTask({
-                ...newTask,
-                projectId: project.id,
-            })
-        );
+        StateManager.addTask({
+            project: data.get("project"),
+            ...newTask,
+        });
 
         updateProjectButtons();
         addProjectButtonEvents();

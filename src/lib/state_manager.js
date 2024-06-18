@@ -1,20 +1,22 @@
 import { createProject } from "./project";
+import { createTask } from "./task";
+
 import {
     TODAY_TASKS_PAGE,
     ALL_TASKS_PAGE,
     IMPORTANT_TASKS_PAGE,
     DEFAULT_PROJECT_NAME,
 } from "../constants";
+
 import {
     goToAllTasksPage,
     goToImportantTasksPage,
     goToTodayTasksPage,
 } from "./pages";
-import { createTask } from "./task";
 
 function createProjectsStageManager() {
     let currentPage;
-    const projects = [];
+    let projects = [];
     const _pages = {
         [TODAY_TASKS_PAGE]: {
             name: TODAY_TASKS_PAGE,
@@ -43,6 +45,7 @@ function createProjectsStageManager() {
             return newProject;
         }
 
+        saveData();
         return project;
     }
 
@@ -110,6 +113,29 @@ function createProjectsStageManager() {
         return importantNotDoneTasks;
     }
 
+    function addTask({ project, projectId, ...data }) {
+        const existentProject = getProjectByName(project);
+
+        if (!existentProject) {
+            const newProject = addNewProject({ name: project });
+            newProject.addTask(
+                createTask({
+                    projectId: newProject.id,
+                    ...data,
+                })
+            );
+        } else {
+            existentProject.addTask(
+                createTask({
+                    projectId: existentProject.id,
+                    ...data,
+                })
+            );
+        }
+
+        saveData();
+    }
+
     function toggleTaskDoneById({ id, projectId }) {
         const project = getProjectById(projectId);
         const task = project.getTaskById(id);
@@ -124,7 +150,6 @@ function createProjectsStageManager() {
 
     function editTaskById(id, { project, ...data }) {
         const projectFound = getProjectByName(project);
-        console.log(projectFound);
 
         if (!projectFound) {
             const newProject = addNewProject({
@@ -156,6 +181,11 @@ function createProjectsStageManager() {
         }
     }
 
+    function removeTaskById({ id, projectId }) {
+        const project = getProjectById(projectId);
+        project.removeTaskById(id);
+    }
+
     function setCurrentPageName(pageName) {
         currentPage = pageName;
     }
@@ -173,10 +203,54 @@ function createProjectsStageManager() {
         }
     }
 
-    function removeTaskById({ id, projectId }) {
-        const project = getProjectById(projectId);
-        project.removeTaskById(id);
+    // TODO: add way to save and retrieve data
+    function saveData() {
+        /* const projectData = projects.map((project) => {
+            const projectTasks = project.getTasks();
+
+            return JSON.stringify({
+                tasks: projectTasks,
+                ...project,
+            });
+        }); */
+
+        const projectData = projects.map((project) => ({
+            tasks: project.getTasks(),
+            ...project,
+        }));
+
+        localStorage.setItem("projects", JSON.stringify(projectData));
     }
+
+    function retrieveData() {
+        const savedProjects = JSON.parse(localStorage.getItem("projects"));
+
+        if (savedProjects?.length > 0) {
+            console.log(savedProjects);
+
+            savedProjects.forEach((project) => {
+                addNewProject({ name: project.name, id: project.id });
+
+                console.log(projects);
+
+                if (project.tasks) {
+                    project.tasks.forEach((task) => {
+                        addTask({
+                            project: project.name,
+                            projectId: project.id,
+                            ...task,
+                        });
+                    });
+                }
+            });
+        }
+    }
+
+    function init() {
+        retrieveData();
+    }
+
+    init();
 
     return {
         getTodayDoneTasks,
@@ -197,6 +271,7 @@ function createProjectsStageManager() {
         addPage,
         editTaskById,
         removeTaskById,
+        addTask,
     };
 }
 

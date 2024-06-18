@@ -63,7 +63,6 @@ export function renderTask({
     const editForm = document.createElement("form");
     editForm.classList = "task__edit-task__form form";
 
-    // TODO: finish implementing way to edit and remove task
     const editTitleField = createEditTaskField({
         name: "title",
         type: "text",
