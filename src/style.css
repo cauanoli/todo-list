@@ -1,260 +1,260 @@
 :root {
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    --gray-900: #000;
-    --gray-700: #bfbfbf;
-    --gray-400: #f0f0f0;
-    --gray-200: #fafafa;
-    --gray-100: #ffffff;
+  --gray-900: #000;
+  --gray-700: #bfbfbf;
+  --gray-400: #f0f0f0;
+  --gray-200: #fafafa;
+  --gray-100: #ffffff;
 
-    --red-600: #f5222d;
+  --red-600: #f5222d;
 }
 
 *,
 *::after,
 *::before {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    height: 100vh;
-    color: var(--gray-900);
-    background-color: var(--gray-100);
+  height: 100vh;
+  color: var(--gray-900);
+  background-color: var(--gray-100);
 
-    font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 h1 {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 summary {
-    font-size: 1.25rem;
-    font-weight: 700;
-    user-select: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  user-select: none;
 }
 
 .button {
-    background-color: transparent;
-    border: none;
-    border-radius: 4px;
-    padding: 0.875rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-transform: capitalize;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 0.875rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 .button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .inverted {
-    background-color: var(--gray-900);
-    color: var(--gray-100);
+  background-color: var(--gray-900);
+  color: var(--gray-100);
 }
 
 .bg-red {
-    background-color: var(--red-600);
+  background-color: var(--red-600);
 }
 
 .main-container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .aside,
 .main-nav__menu,
 .main-nav__projects {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .aside {
-    width: 100%;
-    max-width: 20vw;
-    min-width: 248px;
+  width: 100%;
+  max-width: 20vw;
+  min-width: 248px;
 
-    min-height: 100vh;
-    padding: 1rem;
-    background-color: var(--gray-200);
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: var(--gray-200);
 }
 
 .main-nav {
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-    margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  margin-top: 2rem;
 }
 
 .main-nav__menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--gray-400);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-400);
 }
 
 .main-nav__menu__option,
 .main-nav__projects__project-button {
-    text-align: start;
+  text-align: start;
 }
 
 .main-nav__menu__option,
 .add-project-button,
 .add-task-button {
-    font-weight: 700;
-    text-transform: capitalize;
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 .main-nav__menu__option:hover,
 .main-nav__projects__project-button:hover {
-    background-color: var(--gray-400);
+  background-color: var(--gray-400);
 }
 
 .active {
-    background-color: var(--gray-400);
+  background-color: var(--gray-400);
 }
 
 main {
-    width: 100%;
+  width: 100%;
 }
 
 #content {
-    padding-top: 2rem;
-    padding-left: 8rem;
+  padding-top: 2rem;
+  padding-left: 8rem;
 }
 
 #add-task-button {
-    position: fixed;
-    bottom: 64px;
-    right: 64px;
+  position: fixed;
+  bottom: 64px;
+  right: 64px;
 }
 
 .task {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    max-width: 80ch;
-    user-select: unset;
-    padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  max-width: 80ch;
+  user-select: unset;
+  padding: 0.5rem;
 }
 
 .task:hover {
-    cursor: pointer;
-    background-color: var(--gray-200);
+  cursor: pointer;
+  background-color: var(--gray-200);
 }
 
 .task__done:hover,
 .task__important:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .task__description {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .task__description__title {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .task__description__project {
-    color: var(--gray-700);
+  color: var(--gray-700);
 }
 
 .tasks__not-done:not(:empty),
 .tasks__done {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 4rem;
-    margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 4rem;
+  margin-top: 2rem;
 }
 
 input[type="checkbox"] {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .dialog {
-    inset-block-start: 0px;
-    inset-inline-start: unset;
-    inset-inline-end: 0px;
-    height: 100%;
-    max-height: 100%;
-    border: none;
+  inset-block-start: 0px;
+  inset-inline-start: unset;
+  inset-inline-end: 0px;
+  height: 100%;
+  max-height: 100%;
+  border: none;
 
-    background-color: var(--gray-200);
-    padding: 2rem 3rem;
-    width: 100%;
-    max-width: 400px;
+  background-color: var(--gray-200);
+  padding: 2rem 3rem;
+  width: 100%;
+  max-width: 400px;
 }
 
 .dialog h2 {
-    text-align: center;
-    text-transform: capitalize;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+  text-align: center;
+  text-transform: capitalize;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .form__button {
-    border-radius: 12px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    font-weight: 700;
-    text-transform: capitalize;
-    margin-top: 1rem;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-top: 1rem;
 }
 
 .form__field {
-    display: flex;
-    gap: 0.5rem;
-    flex-direction: column;
-    font-size: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  font-size: 1rem;
 }
 
 .form__field label {
-    font-weight: 700;
-    text-transform: capitalize;
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 .form__field:has(input[type="checkbox"]) {
-    flex-direction: row;
-    align-items: center;
+  flex-direction: row;
+  align-items: center;
 }
 
 details {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 input:not([type="checkbox"]) {
-    padding: 1rem;
-    font-size: 1rem;
-    border: 1px solid var(--gray-700);
-    border-radius: 4px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--gray-700);
+  border-radius: 4px;
 }
 
 .task__edit-task {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 .task__edit-task__form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .task__edit-task__delete-button {
-    color: var(--gray-100);
+  color: var(--gray-100);
 }
